@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Titanic Survival Predictor</title>
+    <style>
+        body { font-family: 'Helvetica', sans-serif; background-color: #f0f2f5; padding: 40px; }
+        .container { max_width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
+        label { display: block; margin: 15px 0 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background-color: #34495e; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; font-size: 16px; }
+        button:hover { background-color: #2c3e50; }
+        .result { margin-top: 20px; text-align: center; font-size: 1.5em; font-weight: bold; padding: 10px; border-radius: 5px; }
+        .success { color: #27ae60; background-color: #e8f8f5; }
+        .danger { color: #c0392b; background-color: #fdedec; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🚢 Titanic Survival Check</h2>
+        <form action="/predict" method="post">
+            
+            <label>Passenger Class (1 = 1st, 3 = 3rd):</label>
+            <select name="Pclass" required>
+                <option value="1">1st Class (Upper)</option>
+                <option value="2">2nd Class (Middle)</option>
+                <option value="3">3rd Class (Lower)</option>
+            </select>
+
+            <label>Sex:</label>
+            <select name="Sex" required>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+            </select>
+
+            <label>Age:</label>
+            <input type="number" name="Age" step="0.5" required placeholder="e.g. 29">
+
+            <label>Siblings/Spouses Aboard:</label>
+            <input type="number" name="SibSp" required placeholder="e.g. 0">
+
+            <label>Fare ($):</label>
+            <input type="number" name="Fare" step="0.01" required placeholder="e.g. 50.00">
+
+            <button type="submit">Predict Survival</button>
+        </form>
+        
+        {% if prediction_text %}
+        <div class="result {{ color_class }}">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
